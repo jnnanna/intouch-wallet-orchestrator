@@ -284,7 +284,11 @@ npm test
 npm run test:watch
 ```
 
-The project maintains >70% code coverage across all modules.
+**Note:** Some integration tests require a database connection and are currently skipped. The test suite includes:
+- ✅ Validation tests (11 passing)
+- ⏸️ Database integration tests (2 skipped - require PostgreSQL setup)
+
+To run the full test suite, set up a test database and update the `DATABASE_URL` in your test environment.
 
 ## 🎨 Code Quality
 
