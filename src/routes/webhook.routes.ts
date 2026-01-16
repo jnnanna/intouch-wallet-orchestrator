@@ -21,7 +21,7 @@ const verifyWebhookSignature = (payload: string, signature: string): boolean => 
  * POST /api/webhooks/intouch
  * Handle InTouch webhook callbacks
  */
-router.post('/intouch', async (req: Request, res: Response, next: NextFunction) => {
+router.post('/intouch', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const payload: WebhookPayload = req.body;
 
@@ -31,13 +31,14 @@ router.post('/intouch', async (req: Request, res: Response, next: NextFunction) 
 
     if (!isValid) {
       logger.warn('Invalid webhook signature');
-      return res.status(401).json({
+      res.status(401).json({
         success: false,
         error: {
           code: 'UNAUTHORIZED',
           message: 'Invalid signature',
         },
       });
+      return;
     }
 
     // Update transaction status

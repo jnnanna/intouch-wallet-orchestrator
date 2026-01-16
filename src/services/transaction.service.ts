@@ -27,10 +27,7 @@ class TransactionService {
   /**
    * Create a new transfer transaction
    */
-  async createTransfer(
-    userId: string,
-    data: CreateTransferDto
-  ): Promise<Transaction> {
+  async createTransfer(userId: string, data: CreateTransferDto): Promise<Transaction> {
     // Validate wallets are supported
     if (!intouchService.isSupportedWallet(data.sourceWallet)) {
       throw new Error(`Unsupported source wallet: ${data.sourceWallet}`);
@@ -77,10 +74,7 @@ class TransactionService {
   /**
    * Get transaction status
    */
-  async getTransactionStatus(
-    userId: string,
-    transactionId: string
-  ): Promise<Transaction> {
+  async getTransactionStatus(userId: string, transactionId: string): Promise<Transaction> {
     const transaction = await prisma.transaction.findFirst({
       where: {
         id: transactionId,

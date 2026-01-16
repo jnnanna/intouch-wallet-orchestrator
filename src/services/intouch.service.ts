@@ -78,9 +78,7 @@ class IntouchService {
 
         this.mockTransactions.set(transactionId, transaction);
 
-        logger.info(
-          `[MOCK INTOUCH] Transaction ${transactionId} updated to ${transaction.status}`
-        );
+        logger.info(`[MOCK INTOUCH] Transaction ${transactionId} updated to ${transaction.status}`);
       }
     }, delay);
   }

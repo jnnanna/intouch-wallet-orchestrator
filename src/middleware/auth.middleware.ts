@@ -3,18 +3,19 @@ import { verifyToken } from '../utils/jwt.util';
 import { AuthRequest } from '../types';
 import logger from '../utils/logger.util';
 
-export const authenticate = (req: AuthRequest, res: Response, next: NextFunction) => {
+export const authenticate = (req: AuthRequest, res: Response, next: NextFunction): void => {
   try {
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return res.status(401).json({
+      res.status(401).json({
         success: false,
         error: {
           code: 'UNAUTHORIZED',
           message: 'No token provided',
         },
       });
+      return;
     }
 
     const token = authHeader.substring(7); // Remove 'Bearer ' prefix
@@ -25,7 +26,7 @@ export const authenticate = (req: AuthRequest, res: Response, next: NextFunction
       next();
     } catch (error) {
       logger.error('Token verification failed:', error);
-      return res.status(401).json({
+      res.status(401).json({
         success: false,
         error: {
           code: 'UNAUTHORIZED',
@@ -35,7 +36,7 @@ export const authenticate = (req: AuthRequest, res: Response, next: NextFunction
     }
   } catch (error) {
     logger.error('Authentication error:', error);
-    return res.status(500).json({
+    res.status(500).json({
       success: false,
       error: {
         code: 'INTERNAL_SERVER_ERROR',

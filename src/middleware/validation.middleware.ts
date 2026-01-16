@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { z, ZodSchema } from 'zod';
 
 export const validate = (schema: ZodSchema) => {
-  return (req: Request, res: Response, next: NextFunction) => {
+  return (req: Request, res: Response, next: NextFunction): void => {
     try {
       schema.parse(req.body);
       next();
@@ -13,7 +13,7 @@ export const validate = (schema: ZodSchema) => {
           message: err.message,
         }));
 
-        return res.status(400).json({
+        res.status(400).json({
           success: false,
           error: {
             code: 'VALIDATION_ERROR',
@@ -21,6 +21,7 @@ export const validate = (schema: ZodSchema) => {
             details: errors,
           },
         });
+        return;
       }
 
       next(error);
@@ -32,9 +33,7 @@ export const validate = (schema: ZodSchema) => {
 export const registerSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Invalid email format'),
-  phone: z
-    .string()
-    .regex(/^[0-9]{12}$/, 'Phone must be 12 digits (e.g., 221771234567)'),
+  phone: z.string().regex(/^[0-9]{12}$/, 'Phone must be 12 digits (e.g., 221771234567)'),
   password: z
     .string()
     .min(8, 'Password must be at least 8 characters')

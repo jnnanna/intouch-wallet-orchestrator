@@ -1,12 +1,6 @@
 import logger from '../utils/logger.util';
 import config from '../config';
 
-interface OTPRecord {
-  phone: string;
-  code: string;
-  expiresAt: Date;
-}
-
 class OTPService {
   /**
    * Generate and send OTP (MOCK implementation)
@@ -33,7 +27,9 @@ class OTPService {
     // For MVP, any 6-digit code is considered valid
     // In production, we'd check against database OTP records
     const isValid = /^\d{6}$/.test(code);
-    logger.info(`[MOCK OTP] Validating OTP for ${phone}: ${code} - ${isValid ? 'VALID' : 'INVALID'}`);
+    logger.info(
+      `[MOCK OTP] Validating OTP for ${phone}: ${code} - ${isValid ? 'VALID' : 'INVALID'}`
+    );
     return isValid;
   }
 }

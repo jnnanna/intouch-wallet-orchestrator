@@ -2,11 +2,7 @@ import { Response, NextFunction } from 'express';
 import transactionService from '../services/transaction.service';
 import { AuthRequest, PaginationParams, TransactionStatus } from '../types';
 
-export const getTransactions = async (
-  req: AuthRequest,
-  res: Response,
-  next: NextFunction
-) => {
+export const getTransactions = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     if (!req.user) {
       throw new Error('User not authenticated');

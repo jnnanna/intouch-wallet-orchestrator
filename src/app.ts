@@ -14,10 +14,12 @@ const app: Express = express();
 
 // Security middleware
 app.use(helmet());
-app.use(cors({
-  origin: process.env.CORS_ORIGIN || '*',
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN || '*',
+    credentials: true,
+  })
+);
 
 // Rate limiting
 const limiter = rateLimit({
@@ -40,12 +42,12 @@ app.use(express.urlencoded({ extended: true }));
 // Request logging
 app.use((req: Request, res: Response, next) => {
   const start = Date.now();
-  
+
   res.on('finish', () => {
     const duration = Date.now() - start;
     logger.info(`${req.method} ${req.path} ${res.statusCode} ${duration}ms`);
   });
-  
+
   next();
 });
 

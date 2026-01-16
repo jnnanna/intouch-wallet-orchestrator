@@ -2,11 +2,7 @@ import { Response, NextFunction } from 'express';
 import transactionService from '../services/transaction.service';
 import { AuthRequest, CreateTransferDto } from '../types';
 
-export const createTransfer = async (
-  req: AuthRequest,
-  res: Response,
-  next: NextFunction
-) => {
+export const createTransfer = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     if (!req.user) {
       throw new Error('User not authenticated');
@@ -32,18 +28,14 @@ export const createTransfer = async (
   }
 };
 
-export const getTransferStatus = async (
-  req: AuthRequest,
-  res: Response,
-  next: NextFunction
-) => {
+export const getTransferStatus = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     if (!req.user) {
       throw new Error('User not authenticated');
     }
 
     const { id } = req.params;
-    const transaction = await transactionService.getTransactionStatus(req.user.id, id);
+    const transaction = await transactionService.getTransactionStatus(req.user.id, id as string);
 
     res.status(200).json({
       success: true,
