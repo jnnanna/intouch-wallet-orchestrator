@@ -308,3 +308,73 @@ The backend scaffolding is complete, well-tested, properly documented, and ready
 
 Total implementation time: Single session
 Code quality: Production-ready with proper TypeScript, testing, and documentation
+
+
+
+### Version française
+
+# Liste de vérification MVP (français)
+
+Ce document vérifie que toutes les exigences du cahier des charges ont été mises en œuvre.
+
+## ✅ Exigences de structure du projet
+
+### Fichiers principaux
+- [x] `package.json` - Dépendances et scripts
+- [x] `tsconfig.json` - Configuration TypeScript (strict)
+- [x] `.eslintrc.json` - ESLint pour TypeScript
+- [x] `.prettierrc` - Prettier
+- [x] `jest.config.js` - Configuration Jest
+- [x] `.gitignore` - Exclusions (node_modules, dist, .env, coverage)
+- [x] `.env.example` - Modèle de variables d'environnement
+- [x] `README.md` - Documentation complète
+
+### Arborescence du code (`src/`)
+- [x] `src/controllers/` - Contrôleurs (`auth`, `transfer`, `transaction`)
+- [x] `src/middleware/` - Middlewares (auth, erreurs, validation)
+- [x] `src/routes/` - Définitions de routes
+- [x] `src/services/` - Logique métier (auth, intouch mock, otp, transaction)
+- [x] `src/utils/` - Utilitaires (jwt, bcrypt, logger)
+- [x] `src/types/` - Définitions TypeScript
+- [x] `src/config/` - Chargement de configuration
+- [x] `src/app.ts`, `src/server.ts`
+
+### Base de données (Prisma)
+- [x] `prisma/schema.prisma` - Modèle complet (User, Transaction, OTP)
+
+### Tests
+- [x] Fichiers de tests présents (`tests/`)
+
+### Documentation
+- [x] `docs/openapi.yaml` - Spécification OpenAPI
+- [x] `docs/postman_collection.json` - Collection Postman
+
+## ✅ Exigences fonctionnelles (résumé)
+
+- Authentification: enregistrement, vérification OTP, login par email/mot de passe
+- Endpoints de transferts: création, statut, liste des transactions avec pagination
+- Webhook: point de réception avec vérification HMAC
+- Services mock: OTP et InTouch simulés pour le MVP
+- Validation: schémas Zod pour toutes les requêtes
+- Sécurité: bcrypt pour les mots de passe, JWT, helmet, rate limiting
+
+## ✅ Configuration & Environnement
+
+- Variables essentielles listées dans `.env.example` (NODE_ENV, PORT, DATABASE_URL, JWT_SECRET, etc.)
+
+## ✅ Qualité du code
+
+- TypeScript en mode strict, ESLint/Prettier configurés, hooks Husky
+
+## ✅ Tests
+
+- Suite de tests avec Jest ; certains tests d'intégration nécessitent une base de données
+
+## ✅ CI/CD
+
+- Workflow GitHub Actions configuré pour lint, format, tests et couverture
+
+## ✅ Conclusion
+
+Toutes les exigences MVP sont implémentées. Le projet est prêt pour le développement local (nécessite PostgreSQL), l'intégration frontend et le passage à l'intégration réelle d'InTouch.
+

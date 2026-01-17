@@ -502,3 +502,118 @@ For questions or issues, please open an issue on GitHub or contact the developme
 ---
 
 **Built with ❤️ for seamless wallet transfers**
+
+
+
+
+
+### Version française
+
+# InTouch Wallet Orchestrator — Guide (français)
+
+Backend MVP pour orchestrez des transferts wallet-à-wallet en utilisant l'API InTouch (mockée pour le développement). Gère l'authentification, la gestion des transactions et les webhooks.
+
+## 🚀 Technologies
+
+- **Runtime** : Node.js (LTS)
+- **Langage** : TypeScript
+- **Framework** : Express
+- **ORM** : Prisma
+- **BD** : PostgreSQL
+- **Auth** : JWT + OTP mock
+- **Tests** : Jest + Supertest
+
+## 📋 Prérequis
+
+Installez : Node.js (v20+), PostgreSQL (v14+), npm
+
+## 🛠️ Installation locale (sans Docker)
+
+1. Cloner le dépôt
+
+```bash
+git clone https://github.com/jnnanna/intouch-wallet-orchestrator.git
+cd intouch-wallet-orchestrator
+```
+
+2. Installer les dépendances
+
+```bash
+npm install
+```
+
+3. Créer la base de données PostgreSQL
+
+```bash
+createdb intouch_wallet_dev
+```
+
+4. Copier et configurer `.env`
+
+```bash
+cp .env.example .env
+# Modifier .env avec vos identifiants PostgreSQL et secrets
+```
+
+5. Migrations Prisma
+
+```bash
+npx prisma migrate dev
+npx prisma generate
+```
+
+6. Démarrer le serveur en développement
+
+```bash
+npm run dev
+```
+
+Serveur accessible sur `http://localhost:3000`.
+
+## 🔌 Points importants de l'API
+
+- Enregistrement : `POST /api/auth/register` (envoie OTP)
+- Vérification OTP : `POST /api/auth/verify-otp` (retourne JWT)
+- Login : `POST /api/auth/login`
+- Créer transfert : `POST /api/transfers` (auth requis)
+- Statut transfert : `GET /api/transfers/{id}/status`
+- Lister transactions : `GET /api/transactions`
+
+Voir `docs/openapi.yaml` et `docs/postman_collection.json` pour la documentation complète.
+
+## 🧪 Tests
+
+Exécuter la suite de tests :
+
+```bash
+npm test
+```
+
+Certains tests d'intégration nécessitent une base de données et sont actuellement ignorés par défaut.
+
+## 🎨 Qualité du code
+
+Linting : `npm run lint`  — Format : `npm run format`
+
+## 🔐 Variables d'environnement (résumé)
+
+- `NODE_ENV`, `PORT`, `DATABASE_URL`, `JWT_SECRET`, `JWT_EXPIRES_IN`
+- `IN_TOUCH_API_KEY`, `IN_TOUCH_BASE_URL`, `IN_TOUCH_WEBHOOK_SECRET`
+- `OTP_EXPIRY_MINUTES`, `LOG_LEVEL`
+
+## 🔄 Étapes suivantes pour la production
+
+- Remplacer les services mock (OTP, InTouch) par les intégrations réelles
+- Configurer la BD de production et les sauvegardes
+- Mettre en place la collecte de logs et la surveillance
+
+## 🤝 Contribution
+
+1. Créez une branche de feature
+2. Faites vos changements
+3. Lancez les tests et le linter
+4. Ouvrez une Pull Request
+
+Merci d'utiliser ce projet — contributions bienvenues !
+
+
